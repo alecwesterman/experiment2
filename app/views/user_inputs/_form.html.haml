@@ -1,0 +1,13 @@
+= form_for @user_input do |f|
+  - if @user_input.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user_input.errors.count, "error")} prohibited this user_input from being saved:"
+      %ul
+        - @user_input.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :body
+    = f.text_area :body
+  .actions
+    = f.submit 'Save'

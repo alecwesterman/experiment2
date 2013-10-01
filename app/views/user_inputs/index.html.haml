@@ -1,0 +1,19 @@
+%h1 Listing user_inputs
+
+%table
+  %tr
+    %th Body
+    %th
+    %th
+    %th
+
+  - @user_inputs.each do |user_input|
+    %tr
+      %td= user_input.body
+      %td= link_to 'Show', user_input
+      %td= link_to 'Edit', edit_user_input_path(user_input)
+      %td= link_to 'Destroy', user_input, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New User input', new_user_input_path

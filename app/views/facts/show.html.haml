@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Body:
+  = @fact.body
+
+= link_to 'Edit', edit_fact_path(@fact)
+\|
+= link_to 'Back', facts_path

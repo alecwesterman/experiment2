@@ -1,0 +1,26 @@
+%p#notice= notice
+%h1 Fact
+%p
+  %b Body:
+  = @user_input.body
+
+= link_to 'Edit', edit_user_input_path(@user_input)
+\|
+= link_to 'Back', user_inputs_path
+
+%h3 Listing Facts
+
+%table
+  %tr
+    %th Body
+    %th
+    %th
+    %th
+
+  - @facts.each do |fact|
+    %tr
+      %td= fact.body
+      %td= link_to 'Show', fact
+      %td= link_to 'Edit', edit_fact_path(fact)
+      %td= link_to 'Destroy', fact, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
