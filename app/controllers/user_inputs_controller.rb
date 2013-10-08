@@ -26,6 +26,7 @@ class UserInputsController < ApplicationController
   # POST /user_inputs.json
   def create
     @user_input = UserInput.new(user_input_params)
+    Fact.create_facts(@user_input)
 
     respond_to do |format|
       if @user_input.save

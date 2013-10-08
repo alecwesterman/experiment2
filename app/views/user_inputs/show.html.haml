@@ -1,5 +1,5 @@
 %p#notice= notice
-%h1 Fact
+%h1 Input and Facts
 %p
   %b Body:
   = @user_input.body
@@ -12,14 +12,11 @@
 
 %table
   %tr
-    %th Body
-    %th
-    %th
-    %th
 
   - @facts.each do |fact|
     %tr
       %td= fact.body
+      %td= fact.number
       %td= link_to 'Show', fact
       %td= link_to 'Edit', edit_fact_path(fact)
       %td= link_to 'Destroy', fact, :method => :delete, :data => { :confirm => 'Are you sure?' }
