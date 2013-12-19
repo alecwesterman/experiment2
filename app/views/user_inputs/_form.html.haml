@@ -1,3 +1,5 @@
+%h1 Input Text
+
 = form_for @user_input do |f|
   - if @user_input.errors.any?
     #error_explanation
@@ -7,7 +9,6 @@
           %li= msg
 
   .field
-    = f.label :body
     = f.text_area :body
   .actions
     = f.submit 'Save'

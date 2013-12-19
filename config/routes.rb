@@ -3,5 +3,5 @@ Experiment2::Application.routes.draw do
 
   resources :user_inputs
 
-  root :to => "home#index"
+  root :to => "user_inputs#new"
 end
