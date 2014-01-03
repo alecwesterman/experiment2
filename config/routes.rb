@@ -1,4 +1,6 @@
 Experiment2::Application.routes.draw do
+  resources :words
+
   resources :facts
 
   resources :user_inputs

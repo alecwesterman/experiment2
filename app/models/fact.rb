@@ -1,8 +1,8 @@
 class Fact
   include Mongoid::Document
-  field :body, type: String
-  field :number, type: Float
+  field :number, type: Float 
   belongs_to :user_input
+  has_many :nouns
 
   def self.create_facts(user_input)
     sentences = Fact.separate_out_sentences(user_input)
@@ -26,14 +26,14 @@ class Fact
       word_array = []
       noun_array = []
       last_word = nil
-      not_needed = ["the", "that"]
+      not_needed = ["the", "that", "a", "an"]
       sentence.split(' ').each do |word|
         unless not_needed.include?(word.downcase)
           word_instance = SynonymParser.create_word_instance(word)
           #Fact.makes_connections(last_word, word_instance)
 
-          if word_instance == "noun"
-            noun_array = word_instance
+          if word_instance.instance_of?(Noun)
+            noun_array << Noun.last
           end
         end
       end
@@ -42,11 +42,13 @@ class Fact
       #   Fact.construct_number(number_array)
       # end
       
-      body = "- "
+      # body = "Placeholder Title"
       # noun_array.each do |noun|
-      #   noun.
+      #   body << "\n- " + noun.name
       # end
-      Fact.create(body: noun_array, user_input: user_input)
+      
+      Fact.create(nouns: noun_array, user_input: user_input)
+      binding.pry
     end
   end
   def self.construct_number(number_array)

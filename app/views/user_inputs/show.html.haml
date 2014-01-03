@@ -10,14 +10,10 @@
 
 %h3 Listing Facts
 
-%table
-  %tr
-
-  - @facts.each do |fact|
-    %tr
-      %td= fact.body
-      %td= fact.number
-      %td= link_to 'Show', fact
-      %td= link_to 'Edit', edit_fact_path(fact)
-      %td= link_to 'Destroy', fact, :method => :delete, :data => { :confirm => 'Are you sure?' }
+- @facts.each do |fact|
+  - fact.nouns.each do |noun|
+  /   = "- " + noun.name "\n"
+  = link_to 'Show', fact
+  = link_to 'Edit', edit_fact_path(fact)
+  = link_to 'Destroy', fact, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

@@ -1,7 +1,7 @@
-class Noun
+class Noun < Word
   include Mongoid::Document
-  field :name
-  field :number, type: Integer
+  field :number, type: Float
   has_many :descriptors
   has_one :verb
+  belongs_to :fact
 end
