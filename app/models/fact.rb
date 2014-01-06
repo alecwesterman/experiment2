@@ -48,7 +48,6 @@ class Fact
       # end
       
       Fact.create(nouns: noun_array, user_input: user_input)
-      binding.pry
     end
   end
   def self.construct_number(number_array)
