@@ -11,9 +11,10 @@
 %h3 Listing Facts
 
 - @facts.each do |fact|
+  = "--------------"
+  %br
   - fact.nouns.each do |noun|
-    = "- " + noun.name
-  = link_to 'Show', fact
-  = link_to 'Edit', edit_fact_path(fact)
-  = link_to 'Destroy', fact, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    = "- " + noun.name #+ " " + noun.verb.name
+    %br
+
 

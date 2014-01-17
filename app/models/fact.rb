@@ -8,33 +8,36 @@ class Fact
     sentences = Fact.separate_out_sentences(user_input)
     sentences.each do |sentence|
 
-
-      #number_array = []
-      #number = Parser.to_number(word)
-
-      # if number.present?
-      #   number_array << number
-      # else
-      #   unless number_array.empty?
-      #     Fact.construct_number(number_array)
-      #     number_array = []
-      #   else
-      #     Fact.create(body: word, user_input: user_input)
-      #   end
-      # end
-
+      
       word_array = []
       noun_array = []
       last_word = nil
       not_needed = ["the", "that", "a", "an"]
       sentence.split(' ').each do |word|
         unless not_needed.include?(word.downcase)
-          word_instance = SynonymParser.create_word_instance(word)
-          #Fact.makes_connections(last_word, word_instance)
 
-          if word_instance.instance_of?(Noun)
-            noun_array << Noun.last
+          number_array = []
+          number = Parser.to_number(word)
+
+          if number.present?
+            number_array << number
+          else
+            unless number_array.empty?
+              #Fact.construct_number(number_array)
+              number_array = []
+            else              
+              word_instance = SynonymParser.create_word_instance(word)
+              Fact.makes_connections(last_word, word_instance)
+              last_word = word_instance
+
+              if word_instance.instance_of?(Noun)
+                noun_array << word_instance
+              end              
+            end
           end
+
+
+
         end
       end
 
@@ -50,9 +53,11 @@ class Fact
       Fact.create(nouns: noun_array, user_input: user_input)
     end
   end
+
+
   def self.construct_number(number_array)
     if number_array.size < 3
-      Fact.create(body: "number", number: number_array.sum, user_input: user_input)
+      Noun.create(body: "number", number: number_array.sum, user_input: user_input)
     else
       #number = number_array[-2...] re import
 
@@ -75,15 +80,15 @@ class Fact
     end
     def self.makes_connections(last_word, word_instance)
       if last_word.present?
-        if last_word.part_of_speech == "adjective" || last_word.part_of_speech == "adverb"
-            last_word.acts_on = word_instance
-        elsif last_word.part_of_speech == "noun"
-          if word_instance.part_of_speech == "verb"
-            last_word.acts_on = word_instance
+        if last_word._type == "Descriptor"
+            # last_word.acts_on = word_instance
+        elsif last_word._type == "Noun"
+          if word_instance._type == "Verb"
+            # last_word.verb = word_instance
           end
-        elsif last_word.part_of_speech == "verb"
-          if word_instance.part_of_speech == "noun"
-            last_word.acts_on = word_instance
+        elsif last_word._type == "Verb"
+          if word_instance._type == "Noun"
+            # last_word.noun = word_instance
           end
         end
       end

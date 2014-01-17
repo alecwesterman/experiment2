@@ -2,7 +2,7 @@ require 'open-uri'
 
 class SynonymParser
   def self.create_word_instance(word)
-    if ["is", "has"].include?(word.downcase)
+    if ["is", "has", "have", "am", "are"].include?(word.downcase)
       return Verb.create(name: word)
     end
     
